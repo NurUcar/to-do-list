@@ -56,7 +56,8 @@ def login(request):
 
 
 def logout(request):
-    pass
+    auth.logout(request)
+    return render(request, 'todolist/login.html')
 
 
 def todolist(request):
