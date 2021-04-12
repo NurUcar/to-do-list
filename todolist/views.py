@@ -29,13 +29,30 @@ def register(request):
                 return render(request, 'todolist/login.html')
             else:
                 messages.info(request, 'Şifreleriniz birbiri ile eşleşmiyor.')
-               
+
     else:
         return render(request, 'todolist/register.html')
 
 
 def login(request):
-    pass
+    if request.method == 'POST':
+        uEmail = request.POST['email']
+        uPassword = request.POST['password']
+        if uEmail == '':
+            messages.warning(request, 'Kayıtlı Mail adresini giriniz.')
+            return redirect('login')
+        elif uPassword == '':
+            messages.warning(request, 'Kayıtlı şifrenizi giriniz.')
+            return redirect('login')
+        else:
+            user = authenticate(request, username=uEmail, password=uPassword)
+            if user is not None:
+                auth.login(request, user)
+            else:
+                messages.error(request, 'Mail adresiniz yada şifreniz hatalı!')
+                return redirect('login')
+    else:
+        return render(request, 'todolist/login.html')
 
 
 def logout(request):
