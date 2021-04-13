@@ -137,3 +137,85 @@ body {
     padding: 1vh;
     color: #fff;
 }
+
+.main_body {
+    width: 80%;
+    height: 80vh;
+    box-shadow: 0 0 5px #999;
+    margin-left: 10%;
+    margin-top: 5vh;
+}
+
+.main_body span {
+    display: flex;
+    width: 100%;
+    height: 8vh;
+    font-size: 20px;
+    font-weight: bold;
+    align-items: center;
+    justify-content: center;
+}
+
+.main_body .to_do_accordion {
+    width: 80%;
+    height: auto;
+    margin-left: 10%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2vh;
+}
+
+
+
+
+
+.to_do_accordion .content_accordion {
+    overflow: hidden;
+    max-height: 0;
+    width: 100%;
+    transition: max-height 0.2s;
+    padding: 0px 15px;
+    background-color: #d9d9dd;
+
+}
+
+.to_do_accordion .to_do_item {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    color: #fff;
+    font-size: 18px;
+    background: #0D1440;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.to_do_item::after {
+    content: '\25be';
+    float: right;
+    transform: scale(1.5);
+}
+
+.to_do_item--active {
+    background: #00529B;
+}
+
+.to_do_item--active::after {
+    content: '\25b4';
+}
+
+.main_body .add_to_do {
+    width: 5vh;
+    height: 5vh;
+    border-radius: 50%;
+    float: right;
+    margin-right: 10%;
+    margin-top: 2vh;
+}
+
+.add_to_do img {
+    width: initial;
+    height: initial;
+}
