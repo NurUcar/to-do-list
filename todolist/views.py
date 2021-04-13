@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User, auth
 from django.contrib import messages
@@ -22,7 +22,8 @@ def register(request):
             messages.info(
                 request, 'İsim Soyisim en az 5 karakterden oluşmalıdır.')
         elif User.objects.filter(email=email):
-            messages.error(request, 'Email adresiniz daha önce başka bir kullanıcı tarafından kullanılmıştır.Eğer şifrenizi unuttuysanız "Giriş Yap" kısmında yer alan "Şifremi Unuttum" seçeneğini kullanabilirsiniz.')
+            messages.error(
+                request, 'Email adresiniz daha önce başka bir kullanıcı tarafından kullanılmıştır.')
 
         else:
             if password1 == password2:
@@ -43,17 +44,16 @@ def login(request):
         uPassword = request.POST['password']
         if uEmail == '':
             messages.warning(request, 'Kayıtlı Mail adresini giriniz.')
-            return redirect('login')
         elif uPassword == '':
             messages.warning(request, 'Kayıtlı şifrenizi giriniz.')
-            return redirect('login')
         else:
             user = authenticate(request, username=uEmail, password=uPassword)
             if user is not None:
                 auth.login(request, user)
+                return render(request, 'todolist/home.html')
             else:
                 messages.error(request, 'Mail adresiniz yada şifreniz hatalı!')
-                return redirect('login')
+        return redirect('login')
     else:
         return render(request, 'todolist/login.html')
 

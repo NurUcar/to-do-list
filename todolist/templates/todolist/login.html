@@ -1,7 +1,23 @@
 {% extends "./base.html" %}
 {% load static %}
-{% block title %}Giriş Yap | Üye Ol{% endblock %}
+{% block title %}To Do List | Giriş Yap{% endblock %}
 
 {% block content %}
-Login
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}-message" {% endif %}>{{ message }}</li>
+        {% endfor %}
+</ul>
+{% endif %}
+<div class="register-container">
+
+    <form action="{% url 'login'%}" method="post">
+        {% csrf_token %}
+        <h1>Giriş Yap</h1>
+        <input type="email" name="email" placeholder="E-posta" />
+        <input type="password" name="password" placeholder="Şifre" />
+        <button type="submit">Giriş Yap</button>
+    </form>
+</div>
 {% endblock  %}
