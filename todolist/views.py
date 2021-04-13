@@ -4,6 +4,17 @@ from django.contrib.auth.models import User, auth
 from django.contrib import messages
 
 
+def current_user(request):
+    current_user = None
+    if request.user.is_authenticated:
+        current_user = request.user
+    else:
+        current_user = None
+    return{
+        'current_user': current_user,
+    }
+
+
 def register(request):
     if request.method == 'POST':
         email = request.POST['email']
@@ -50,7 +61,7 @@ def login(request):
             user = authenticate(request, username=uEmail, password=uPassword)
             if user is not None:
                 auth.login(request, user)
-                return render(request, 'todolist/home.html')
+                return redirect('home')
             else:
                 messages.error(request, 'Mail adresiniz yada şifreniz hatalı!')
         return redirect('login')
@@ -60,7 +71,12 @@ def login(request):
 
 def logout(request):
     auth.logout(request)
-    return render(request, 'todolist/login.html')
+    return redirect('login')
+
+
+def home(request):
+    print(current_user)
+    return render(request, 'todolist/home.html')
 
 
 def todolist(request):

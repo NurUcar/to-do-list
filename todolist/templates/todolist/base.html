@@ -22,12 +22,22 @@
 
 <body>
     <div class="header">
+        {% if current_user%}
+        <a href="#">
+            <div class="current_user_name">{{current_user.first_name}}</div>
+        </a>
+        <a href="{% url "logout" %}">
+            <div class="logout">Çıkış Yap</div>
+        </a>
+        {% elif current_user == none %}
         <a href="{% url "login" %}">
             <div class="login">Giriş Yap</div>
         </a>
         <a href="{% url "register" %}">
             <div class="register">Üye Ol</div>
         </a>
+
+        {% endif %}
     </div>
     <div id="content">{% block content %}{% endblock %}</div>
 
