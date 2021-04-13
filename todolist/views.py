@@ -74,10 +74,6 @@ def logout(request):
     return redirect('login')
 
 
-def home(request):
-    print(current_user)
-    return render(request, 'todolist/home.html')
-
-
 def todolist(request):
-    pass
+
+    return render(request, 'todolist/todolist.html')

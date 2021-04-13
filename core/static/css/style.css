@@ -12,6 +12,26 @@ body {
     color: #0D1440;
 }
 
+.brand {
+    width: 100%;
+    height: 30px;
+    background-color: #0D1440;
+    padding: 15px;
+    font-size: 25px;
+    color: #fff;
+    font-weight: bolder;
+    display: flex;
+    justify-content: center;
+}
+
+.brand a {
+
+    text-decoration: none;
+    font-size: 25px;
+    color: #fff;
+    font-weight: bolder;
+}
+
 .header {
     width: 100%;
     height: 30px;
