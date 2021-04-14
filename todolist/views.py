@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User, auth
 from django.contrib import messages
+from .models import toDoLists
 
 
 def current_user(request):
@@ -61,7 +62,7 @@ def login(request):
             user = authenticate(request, username=uEmail, password=uPassword)
             if user is not None:
                 auth.login(request, user)
-                return redirect('home')
+                return redirect('todolist')
             else:
                 messages.error(request, 'Mail adresiniz yada şifreniz hatalı!')
         return redirect('login')
@@ -74,6 +75,20 @@ def logout(request):
     return redirect('login')
 
 
+# this method using for list all to do list for current user
 def todolist(request):
+    current_user = request.user
+    cToDoLists = toDoLists.objects.filter(user=current_user)
+    context = {'cToDoLists': cToDoLists, }
+    return render(request, 'todolist/todolist.html', context)
 
+
+# this method using for create a new to do list with user and list_name parameters
+def addtodo(request):
+    if request.method == 'POST':
+        current_user = request.user
+        list_name = request.POST['list_name']
+        todolist = toDoLists.objects.create(
+            user=current_user, list_name=list_name)
+        return redirect('todolist')
     return render(request, 'todolist/todolist.html')
