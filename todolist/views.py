@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User, auth
 from django.contrib import messages
-from .models import toDoLists
+from .models import toDoLists, toDoListItem
 
 
 def current_user(request):
@@ -78,10 +78,15 @@ def logout(request):
 # this method using for list all to do list for current user
 def todolist(request):
     cToDoLists = toDoLists.objects.none()
+    cToDoListItem = toDoListItem.objects.none()
     if not request.user.is_staff:
         current_user = request.user
         cToDoLists = toDoLists.objects.filter(user=current_user)
-    context = {'cToDoLists': cToDoLists, }
+        cToDoListItem = toDoListItem.objects.all()
+    context = {
+        'cToDoLists': cToDoLists,
+        'cToDoListItem': cToDoListItem,
+    }
     return render(request, 'todolist/todolist.html', context)
 
 
@@ -100,3 +105,17 @@ def addtodo(request):
 def deleteToDo(request, id):
     toDoLists.objects.filter(id=id).delete()
     return redirect('todolist')
+
+
+def addItem(request):
+    if request.method == 'POST':
+        todolist_name = request.POST['toDo']
+        todolist_object = toDoLists.objects.get(list_name=todolist_name)
+        item_name = request.POST['item_name']
+        description = request.POST['description']
+        dead_line = request.POST['deadline']
+        created_item = toDoListItem.objects.create(toDoList=todolist_object,
+                                                   item_name=item_name, description=description, dead_line=dead_line)
+        return redirect('todolist')
+
+    return render(request, 'todolist/todolist.html')

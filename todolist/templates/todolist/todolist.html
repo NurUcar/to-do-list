@@ -17,8 +17,11 @@
             <label class="box-title" for="{{todoList.id}}">{{todoList.list_name}}</label>
             <label class="box-close" for="acc-close"></label>
             <div class="box-content">
-                <p>Click on an item to open. Click on its header or the list header to close.</p>
-
+                {% for listItem in cToDoListItem %}
+                {% if listItem.toDoList == todoList %}
+                <p>{{listItem.item_name}}</p>
+                {% endif %}
+                {% endfor %}
                 <a href="{%url 'deleteToDo' todoList.id%}" class="delete_list">Delete</a>
             </div>
         </section>
@@ -40,21 +43,19 @@
 </div>
 
 <div class="pop-up" id="pop-up">
-    <form action="{% url 'login'%}" method="post">
+    <form action="{% url 'addItem'%}" method="post">
         {% csrf_token %}
         <h1>Add New Item</h1>
         <input list="toDo" name="toDo">
         <datalist id="toDo">
-            <option value="Internet Explorer">
-            <option value="Firefox">
-            <option value="Chrome">
-            <option value="Opera">
-            <option value="Safari">
+            {% for todoList in cToDoLists %}
+            <option value="{{todoList.list_name}}">
+                {% endfor %}
         </datalist>
         <input type="text" name="item_name" placeholder="Create New To Do List" />
         <input type="datetime-local" id="deadline" name="deadline">
         <textarea name="description" placeholder="Description"></textarea>
-        <button type="submit">Giriş Yap</button>
+        <button type="submit">Ekle</button>
     </form>
 </div>
 {% endblock  %}
