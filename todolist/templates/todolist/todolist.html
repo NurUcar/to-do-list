@@ -13,16 +13,60 @@
     <nav class="accordion arrows">
         {% for todoList in cToDoLists %}
         <input type="radio" name="accordion" id="{{todoList.id}}" />
+
         <section class="box">
             <label class="box-title" for="{{todoList.id}}">{{todoList.list_name}}</label>
             <label class="box-close" for="acc-close"></label>
             <div class="box-content">
-                {% for listItem in cToDoListItem %}
-                {% if listItem.toDoList == todoList %}
-                <p>{{listItem.item_name}}</p>
-                {% endif %}
-                {% endfor %}
-                <a href="{%url 'deleteToDo' todoList.id%}" class="delete_list">Delete</a>
+
+
+                <label for="cars">Filter Items:</label>
+                <select name="cars" id="cars">
+                    <option value="On Progress">On Progress</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Expired">Expired</option>
+                    <option value="Not Completed">Not Completed</option>
+                </select>
+                <label for="cars">Order Items:</label>
+                <select name="cars" id="cars">
+                    <option value="Created Date">Created Date</option>
+                    <option value="Deadline">Deadline</option>
+                    <option value="Name">Name</option>
+                    <option value="Status">Status</option>
+                </select>
+                <form action="" class="search_item">
+                    <input type="text" name="search_item" class="input_display"
+                        placeholder="Search Item by Name" />
+
+                    <button type="submit">Search</button>
+                </form>
+                <table>
+                    <tr>
+                        <th>Item Name</th>
+                        <th>Item Deadline</th>
+                        <th>Item Description</th>
+                        <th>Item Status</th>
+                        <th>Set Completed</th>
+                    </tr>
+                    {% for listItem in cToDoListItem %}
+                    {% if listItem.toDoList == todoList %}
+                    <tr>
+                        <td>{{listItem.item_name}}</td>
+                        <td>{{listItem.dead_line}}</td>
+                        <td>{{listItem.description}}</td>
+                        <td>{{listItem.status}}</td>
+                        <td>
+                            <input type="checkbox" class="input_display" />
+                        </td>
+
+                    </tr>
+
+                    {% endif %}
+                    {% endfor %}
+
+                </table>
+
+                <a href="{%url 'deleteToDo' todoList.id%}" class="delete_list">Delete List</a>
             </div>
         </section>
 

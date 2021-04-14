@@ -165,6 +165,10 @@ body {
     display: none;
 }
 
+.accordion .input_display {
+    display: flex;
+}
+
 .box {
     position: relative;
     background: white;
@@ -272,10 +276,7 @@ input:checked+section.box .box-title:before {
     outline: none;
 }
 
-.add_to_do_body button {
-    width: 80px;
-    height: 4vh;
-}
+
 
 .main_body .add_to_do {
     width: 4vh;
@@ -343,8 +344,48 @@ input:checked+section.box .box-title:before {
 
 .delete_list {
     float: right;
-    width: 50px;
+    width: 100px;
+    margin-top: 2vh;
     height: 3vh;
     color: black;
     text-decoration: none;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td,
+th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+
+button {
+    outline: none;
+    border: none;
+    width: 80px;
+    height: 4vh;
+    background-color: #6BBE92;
+    margin-left: 1vh;
+}
+
+.box-content label,
+select {
+    margin-bottom: 2vh;
+}
+
+.box-content .search_item {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 2vh;
+    float: right;
 }
