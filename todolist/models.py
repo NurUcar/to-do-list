@@ -8,6 +8,12 @@ class toDoLists(models.Model):
     list_name = models.TextField(null=False, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        ordering = ('-created_at',)
+
+    def __str__(self):
+        return self.list_name
+
 
 class toDoListItem(models.Model):
     STATUS = (
@@ -23,3 +29,9 @@ class toDoListItem(models.Model):
     status = models.CharField(
         max_length=15, choices=STATUS, default='On Progress')
     dead_line = models.DateTimeField()
+
+    class Meta:
+        ordering = ('-created_at', '-dead_line', 'item_name', 'status')
+
+    def __str__(self):
+        return self.item_name
