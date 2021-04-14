@@ -77,8 +77,10 @@ def logout(request):
 
 # this method using for list all to do list for current user
 def todolist(request):
-    current_user = request.user
-    cToDoLists = toDoLists.objects.filter(user=current_user)
+    cToDoLists = toDoLists.objects.none()
+    if not request.user.is_staff:
+        current_user = request.user
+        cToDoLists = toDoLists.objects.filter(user=current_user)
     context = {'cToDoLists': cToDoLists, }
     return render(request, 'todolist/todolist.html', context)
 
@@ -92,3 +94,9 @@ def addtodo(request):
             user=current_user, list_name=list_name)
         return redirect('todolist')
     return render(request, 'todolist/todolist.html')
+
+
+# delete specific todolist from users' lists
+def deleteToDo(request, id):
+    toDoLists.objects.filter(id=id).delete()
+    return redirect('todolist')

@@ -340,3 +340,11 @@ input:checked+section.box .box-title:before {
     pointer-events: none;
     user-select: none;
 }
+
+.delete_list {
+    float: right;
+    width: 50px;
+    height: 3vh;
+    color: black;
+    text-decoration: none;
+}
