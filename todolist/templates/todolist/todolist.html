@@ -3,9 +3,13 @@
 {% block title %}To Do List {% endblock %}
 
 {% block content %}
-<div class="main_body">
+<div class="main_body" id="blur">
     <span>My To Do Lists</span>
-
+    <div class="add_to_do_body">
+        <div class="add_to_do">
+            <a href="#" onclick="toggle()"><img src="{%static "img/add.svg" %}"></a>
+        </div>
+    </div>
     <nav class="accordion arrows">
         <input type="radio" name="accordion" id="cb1" />
         <section class="box">
@@ -29,6 +33,35 @@
 
         <input type="radio" name="accordion" id="acc-close" />
     </nav>
-    <div class="add_to_do"><a href="#"><img src="{%static "img/add.svg" %}"></a></div>
+    <div class="add_to_do_body">
+        <form action="{% url 'login'%}" method="post">
+            {% csrf_token %}
+            <input type="text" name="list_name" placeholder="Create New To Do List" />
+
+            <button type="submit">Add</button>
+        </form>
+
+
+
+    </div>
+</div>
+
+<div class="pop-up" id="pop-up">
+    <form action="{% url 'login'%}" method="post">
+        {% csrf_token %}
+        <h1>Add New Item</h1>
+        <input list="toDo" name="toDo">
+        <datalist id="toDo">
+            <option value="Internet Explorer">
+            <option value="Firefox">
+            <option value="Chrome">
+            <option value="Opera">
+            <option value="Safari">
+        </datalist>
+        <input type="text" name="item_name" placeholder="Create New To Do List" />
+        <input type="datetime-local" id="deadline" name="deadline">
+        <textarea name="description" placeholder="Description"></textarea>
+        <button type="submit">Giriş Yap</button>
+    </form>
 </div>
 {% endblock  %}

@@ -17,7 +17,7 @@ class toDoLists(models.Model):
 
 class toDoListItem(models.Model):
     STATUS = (
-        ('Complete', 'Complete'),
+        ('Completed', 'Completed'),
         ('On Progress', 'On Progress'),
         ('Expired', 'Expired'),
     )

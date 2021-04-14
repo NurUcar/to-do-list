@@ -254,18 +254,89 @@ input:checked+section.box .box-title:before {
     transform: rotate(90deg);
 }
 
+.main_body .add_to_do_body {
+    width: 70%;
+    height: 7vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    margin-left: 20%;
+    margin-top: 3vh;
+}
 
+.add_to_do_body input {
+    width: 250px;
+    height: 4vh;
+    padding: 5px;
+    outline: none;
+}
+
+.add_to_do_body button {
+    width: 80px;
+    height: 4vh;
+}
 
 .main_body .add_to_do {
-    width: 5vh;
-    height: 5vh;
+    width: 4vh;
+    height: 4vh;
     border-radius: 50%;
     float: right;
-    margin-right: 10%;
-    margin-top: 2vh;
+    margin-left: 2%;
+    margin-right: 2%;
 }
 
 .add_to_do img {
     width: initial;
     height: initial;
+}
+
+#pop-up {
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    padding: 2%;
+    box-shadow: 0 5px 30px#999;
+    background-color: #f5f5f7;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.5s;
+}
+
+#pop-up form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+#pop-up input {
+    width: 250px;
+    height: 3vh;
+    margin-bottom: 1vh;
+    padding: 10px;
+}
+
+#pop-up textarea {
+    width: 250px;
+    height: 25vh;
+    margin-bottom: 1vh;
+    padding: 10px;
+    resize: none;
+}
+
+#pop-up.active {
+    top: 50%;
+    visibility: visible;
+    opacity: 1;
+    transition: 0.5s;
+}
+
+.main_body#blur.active {
+    filter: blur(10px);
+    pointer-events: none;
+    user-select: none;
 }
