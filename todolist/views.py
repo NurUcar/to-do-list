@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User, auth
 from django.contrib import messages
 from .models import toDoLists, toDoListItem
+from django.contrib.auth.decorators import login_required
 
 
 def current_user(request):
@@ -101,6 +102,7 @@ def todolist(request):
 
 
 # this method using for create a new to do list with user and list_name parameters
+
 def addtodo(request):
     if request.method == 'POST':
         current_user = request.user
@@ -112,6 +114,8 @@ def addtodo(request):
 
 
 # delete specific todolist from users' lists
+
+
 def deleteToDo(request, id):
     toDoLists.objects.filter(id=id).delete()
     return redirect('todolist')
