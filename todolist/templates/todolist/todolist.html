@@ -176,7 +176,13 @@
                         <td>{{listItem.description}}</td>
                         <td>{{listItem.status}}</td>
                         <td>
-                            <input type="checkbox" class="input_display checkbox" name="Completed_item" />
+                            <form id="filter" action="{% url 'todolist'%}" method="post">
+                                {% csrf_token %}
+
+                                <input type="checkbox" class="input_display checkbox" name="Completed_item"
+                                    value={{listItem.id}} onchange="this.form.submit();" />
+
+                            </form>
                         </td>
 
                     </tr>
@@ -186,7 +192,7 @@
 
                 </table>
 
-                <a href="{%url 'deleteToDo' todoList.id%}" class="delete_list">Delete List</a>
+                <a href=" {%url 'deleteToDo' todoList.id%}" class="delete_list">Delete List</a>
             </div>
         </section>
 

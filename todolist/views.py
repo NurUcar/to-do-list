@@ -81,6 +81,12 @@ def todolist(request):
         cToDoLists = toDoLists.objects.filter(user=current_user)
         cToDoListItem = toDoListItem.objects.all()
 
+    # set status as completed
+    if request.method == 'POST':
+        completed = request.POST['Completed_item']
+        if toDoListItem.objects.filter(id=completed):
+            item = toDoListItem.objects.filter(
+                id=completed).update(status="Completed")
     context = {
         'current_user': current_user,
         'cToDoLists': cToDoLists,
