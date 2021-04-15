@@ -6,17 +6,6 @@ from .models import toDoLists, toDoListItem
 from django.contrib.auth.decorators import login_required
 
 
-def current_user(request):
-    current_user = None
-    if request.user.is_authenticated:
-        current_user = request.user
-    else:
-        current_user = None
-    return{
-        'current_user': current_user,
-    }
-
-
 def register(request):
     if request.method == 'POST':
         email = request.POST['email']
@@ -76,33 +65,32 @@ def logout(request):
     return redirect('login')
 
 
-# this method use for call to do lists of current user
-# for use this method it must implement to
-# settings->TEMPLATES->options
-# by this method lists will call once use again and again
-def get_toDoLists(request):
+@login_required(login_url='login')
+def todolist(request):
+    current_user = None
     cToDoLists = toDoLists.objects.none()
     cToDoListItem = toDoListItem.objects.none()
+    # get current user
+    if request.user.is_authenticated:
+        current_user = request.user
+    else:
+        current_user = None
+    # get lists belong current user
     if not request.user.is_staff:
         current_user = request.user
         cToDoLists = toDoLists.objects.filter(user=current_user)
         cToDoListItem = toDoListItem.objects.all()
 
-    return {
+    context = {
+        'current_user': current_user,
         'cToDoLists': cToDoLists,
         'cToDoListItem': cToDoListItem,
     }
-
-# this method using for list all to do list for current user
-
-
-def todolist(request):
-
-    return render(request, 'todolist/todolist.html')
+    return render(request, 'todolist/todolist.html', context)
 
 
 # this method using for create a new to do list with user and list_name parameters
-
+@login_required(login_url='login')
 def addtodo(request):
     if request.method == 'POST':
         current_user = request.user
@@ -115,12 +103,13 @@ def addtodo(request):
 
 # delete specific todolist from users' lists
 
-
+@login_required(login_url='login')
 def deleteToDo(request, id):
     toDoLists.objects.filter(id=id).delete()
     return redirect('todolist')
 
 
+@login_required(login_url='login')
 def addItem(request):
     if request.method == 'POST':
         todolist_name = request.POST['toDo']
@@ -135,6 +124,7 @@ def addItem(request):
     return render(request, 'todolist/todolist.html')
 
 
+@login_required(login_url='login')
 def searchItem(request):
     result_items = toDoListItem.objects.none()
     search_item = None
@@ -149,6 +139,7 @@ def searchItem(request):
     return render(request, 'todolist/todolist.html', context)
 
 
+@login_required(login_url='login')
 def filterItem(request):
     result_items = toDoListItem.objects.none()
     filter_type = None
@@ -164,6 +155,7 @@ def filterItem(request):
     return render(request, 'todolist/todolist.html', context)
 
 
+@login_required(login_url='login')
 def orderItem(request):
     result_items = toDoListItem.objects.none()
     order_type = None
