@@ -161,4 +161,21 @@ def filterItem(request):
 
 
 def orderItem(request):
-    pass
+    result_items = toDoListItem.objects.none()
+    order_type = None
+    if request.method == 'POST':
+        order_type = request.POST['order']
+        if order_type == "Created Date":
+            result_items = toDoListItem.objects.order_by('created_at')
+        elif order_type == "Deadline":
+            result_items = toDoListItem.objects.order_by('dead_line')
+        elif order_type == "Name":
+            result_items = toDoListItem.objects.order_by('item_name')
+        elif order_type == "Status":
+            result_items = toDoListItem.objects.order_by('status')
+    context = {
+        'order_type': order_type,
+        'result_items': result_items
+    }
+
+    return render(request, 'todolist/todolist.html', context)
