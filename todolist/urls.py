@@ -11,4 +11,6 @@ urlpatterns = [
     path("todolist/deleteList/<int:id>", views.deleteToDo, name="deleteToDo"),
     path("todolist/additem", views.addItem, name="addItem"),
     path("todolist/search", views.searchItem, name="searchItem"),
+    path("todolist/filter", views.filterItem, name="filterItem"),
+    path("todolist/order", views.orderItem, name="orderItem"),
 ]

@@ -86,6 +86,7 @@ def get_toDoLists(request):
         current_user = request.user
         cToDoLists = toDoLists.objects.filter(user=current_user)
         cToDoListItem = toDoListItem.objects.all()
+
     return {
         'cToDoLists': cToDoLists,
         'cToDoListItem': cToDoListItem,
@@ -137,10 +138,27 @@ def searchItem(request):
         search_item = request.POST['search_item']
         result_items = toDoListItem.objects.filter(
             item_name__contains=search_item)
-        
-        print(result_items)
     context = {
         'search_item': search_item,
         'result_items': result_items,
     }
-    return render(request, 'todolist/todolist.html',context)
+    return render(request, 'todolist/todolist.html', context)
+
+
+def filterItem(request):
+    result_items = toDoListItem.objects.none()
+    filter_type = None
+    if request.method == 'POST':
+        filter_type = request.POST['filter']
+        result_items = toDoListItem.objects.filter(status=filter_type)
+        print(result_items)
+    context = {
+        'filter_type': filter_type,
+        'result_items': result_items
+    }
+
+    return render(request, 'todolist/todolist.html', context)
+
+
+def orderItem(request):
+    pass

@@ -5,7 +5,7 @@
 {% block content %}
 <div class="main_body" id="blur">
 
-    {% if search_item != none %}
+    {% if search_item != none   %}
 
     <span>Search Result For {{search_item}}</span>
     <div class="search_results">
@@ -35,26 +35,81 @@
                 </td>
 
             </tr>
-
             {% endfor %}
-
         </table>
 
+    </div>
+    {% elif  filter_type != none%}
+
+    <span>Filter Result For {{filter_type}}</span>
+    <div class="search_results">
+        <table>
+
+            <tr>
+                <th></th>
+                <th>List Name</th>
+                <th>Item Name</th>
+                <th>Item Deadline</th>
+                <th>Item Description</th>
+                <th>Item Status</th>
+                <th>Set Completed</th>
+            </tr>
+            {% for result_item in result_items %}
+            <tr>
+                <td>
+                    <input type="checkbox" class="input_display checkbox" name="select_item" />
+                </td>
+                <td>{{result_item.toDoList}}</td>
+                <td>{{result_item.item_name}}</td>
+                <td>{{result_item.dead_line}}</td>
+                <td>{{result_item.description}}</td>
+                <td>{{result_item.status}}</td>
+                <td>
+                    <input type="checkbox" class="input_display checkbox" name="Completed_item" />
+                </td>
+
+            </tr>
+            {% endfor %}
+        </table>
 
     </div>
+
     {% endif %}
     <span>My To Do Lists</span>
     <div class="add_to_do_body">
         <div class="add_to_do">
             <a href="#" onclick="toggle()"><img src="{%static "img/add.svg" %}"></a>
         </div>
-        <form action="{% url 'searchItem'%}" method="post">
-            {% csrf_token %}
-            <input type="text" name="search_item" placeholder="Search Item by Name" />
+        <div class="style_form">
+            <form id="filter" action="{% url 'filterItem'%}" method="post">
+                {% csrf_token %}
+                <label for="filter">Filter:</label>
+                <select name="filter" id="filter" onchange="this.form.submit();">
+                    <option value=""></option>
+                    <option value="On Progress">On Progress</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Expired">Expired</option>
+                    <option value="Not Completed">Not Completed</option>
+                </select>
+            </form>
+            <form id="order" action="{% url 'orderItem'%}" method="post">
+                {% csrf_token %}
+                <label for="order">Order:</label>
+                <select name="order" id="order" onchange="this.form.submit();">
+                    <option value=""></option>
+                    <option value="Created Date">Created Date</option>
+                    <option value="Deadline">Deadline</option>
+                    <option value="Name">Name</option>
+                    <option value="Status">Status</option>
+                </select>
+            </form>
+            <form action="{% url 'searchItem'%}" method="post">
+                {% csrf_token %}
+                <input type="text" name="search_item" placeholder="Search Item by Name" />
 
-            <button type="submit">Search</button>
-        </form>
-
+                <button type="submit">Search</button>
+            </form>
+        </div>
     </div>
     <nav class="accordion arrows">
         {% for todoList in cToDoLists %}
@@ -64,24 +119,6 @@
             <label class="box-title" for="{{todoList.id}}">{{todoList.list_name}}</label>
             <label class="box-close" for="acc-close"></label>
             <div class="box-content">
-
-
-                <label for="cars">Filter Items:</label>
-                <select name="cars" id="cars">
-                    <option value=""></option>
-                    <option value="On Progress">On Progress</option>
-                    <option value="Completed">Completed</option>
-                    <option value="Expired">Expired</option>
-                    <option value="Not Completed">Not Completed</option>
-                </select>
-                <label for="cars">Order Items:</label>
-                <select name="cars" id="cars">
-                    <option value=""></option>
-                    <option value="Created Date">Created Date</option>
-                    <option value="Deadline">Deadline</option>
-                    <option value="Name">Name</option>
-                    <option value="Status">Status</option>
-                </select>
 
 
                 <table>

@@ -259,13 +259,13 @@ input:checked+section.box .box-title:before {
 }
 
 .main_body .add_to_do_body {
-    width: 70%;
+    width: 80%;
     height: 7vh;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: flex-end;
-    margin-left: 20%;
+    margin-left: 10%;
     margin-top: 3vh;
 }
 
@@ -285,11 +285,22 @@ input:checked+section.box .box-title:before {
     float: right;
     margin-left: 2%;
     margin-right: 2%;
+    margin-bottom: 2vh;
 }
 
 .add_to_do img {
-    width: initial;
-    height: initial;
+    width: 4vh;
+    height: 4vh;
+}
+
+.main_body .style_form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.style_form select {
+    margin-right: 7px;
 }
 
 #pop-up {
