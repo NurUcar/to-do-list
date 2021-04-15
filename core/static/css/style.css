@@ -390,6 +390,20 @@ select {
     float: right;
 }
 
+
 .checkbox {
-    margin-left: 5vh;
+    margin-left: 3vh;
+}
+
+.search_results {
+    width: 80%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    margin-left: 10%;
+    margin-top: 3vh;
+    margin-bottom: 5vh;
+    box-shadow: 0 -1px 0 #e5e5e5, 0 0 2px rgba(0, 0, 0, .12), 0 2px 4px rgba(0, 0, 0, .24);
 }

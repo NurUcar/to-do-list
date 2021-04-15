@@ -51,7 +51,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # for info check views of todolist
                 'todolist.views.current_user',
+                'todolist.views.get_toDoLists'
             ],
         },
     },

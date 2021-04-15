@@ -75,19 +75,28 @@ def logout(request):
     return redirect('login')
 
 
-# this method using for list all to do list for current user
-def todolist(request):
+# this method use for call to do lists of current user
+# for use this method it must implement to
+# settings->TEMPLATES->options
+# by this method lists will call once use again and again
+def get_toDoLists(request):
     cToDoLists = toDoLists.objects.none()
     cToDoListItem = toDoListItem.objects.none()
     if not request.user.is_staff:
         current_user = request.user
         cToDoLists = toDoLists.objects.filter(user=current_user)
         cToDoListItem = toDoListItem.objects.all()
-    context = {
+    return {
         'cToDoLists': cToDoLists,
         'cToDoListItem': cToDoListItem,
     }
-    return render(request, 'todolist/todolist.html', context)
+
+# this method using for list all to do list for current user
+
+
+def todolist(request):
+
+    return render(request, 'todolist/todolist.html')
 
 
 # this method using for create a new to do list with user and list_name parameters
@@ -119,3 +128,19 @@ def addItem(request):
         return redirect('todolist')
 
     return render(request, 'todolist/todolist.html')
+
+
+def searchItem(request):
+    result_items = toDoListItem.objects.none()
+    search_item = None
+    if request.method == 'POST':
+        search_item = request.POST['search_item']
+        result_items = toDoListItem.objects.filter(
+            item_name__contains=search_item)
+        
+        print(result_items)
+    context = {
+        'search_item': search_item,
+        'result_items': result_items,
+    }
+    return render(request, 'todolist/todolist.html',context)
