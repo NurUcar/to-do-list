@@ -36,4 +36,5 @@ Quick start
 
 5. Run ``python manage.py migrate`` to create the todolist models.
 
-6. You can start to use after start server
+6. Start the development server and visit http://localhost:8000/register/
+   to create a
