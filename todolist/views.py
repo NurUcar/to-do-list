@@ -116,6 +116,12 @@ def deleteToDo(request, id):
 
 
 @login_required(login_url='login')
+def deleteItem(request, id):
+    toDoListItem.objects.filter(id=id).delete()
+    return redirect('todolist')
+
+
+@login_required(login_url='login')
 def addItem(request):
     if request.method == 'POST':
         todolist_name = request.POST['toDo']

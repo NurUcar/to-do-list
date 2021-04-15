@@ -169,7 +169,8 @@
                     {% if listItem.toDoList == todoList %}
                     <tr>
                         <td>
-                            <input type="checkbox" class="input_display checkbox" name="select_item" />
+                            <a href=" {%url 'deleteItem' listItem.id%}" class="delete_item">Delete Item</a>
+
                         </td>
                         <td>{{listItem.item_name}}</td>
                         <td>{{listItem.dead_line}}</td>

@@ -362,6 +362,13 @@ input:checked+section.box .box-title:before {
     text-decoration: none;
 }
 
+.delete_item {
+    float: right;
+    width: 100px;
+    color: black;
+    text-decoration: none;
+}
+
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
